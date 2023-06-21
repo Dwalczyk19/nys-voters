@@ -33,7 +33,7 @@ def main(dataset_id, table_id, batchsize, schema):
 
     schemafields = parse(json.load(schema))
 
-    print 'Parsed schema:'
+    print ('Parsed schema:')
     pprint.pprint(schemafields)
 
     dsref = bigquery_client.dataset(dataset_id)
@@ -52,7 +52,7 @@ def main(dataset_id, table_id, batchsize, schema):
     buffer = []
     count = 0
 
-    print 'Reading from STDIN...'
+    print ('Reading from STDIN...')
     for line in sys.stdin:
         try:
             obj = json.loads(line, object_pairs_hook=OrderedDict)
@@ -62,10 +62,10 @@ def main(dataset_id, table_id, batchsize, schema):
                 print('Loaded {} rows'.format(count))
                 buffer = []
         except Exception as e:
-            print e
-            print "-------START ERROR-------"
-            print "Could not process:", line
-            print "--------END ERROR--------"
+            print (e)
+            print ("-------START ERROR-------")
+            print ("Could not process:", line)
+            print ("--------END ERROR--------")
 
     if len(buffer) > 0:
         count = count + flush(buffer, table, count)
